@@ -3,11 +3,23 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
   </head>
+  <title>Twittler</title>
   <body>
     <script>
+        hashCode = function(str){
+            var hash = 0;
+            if (str.length === 0) return hash;
+            for(i=0; i < str.length; i++) {
+                char = str.charCodeAt(i);
+                hash = ((hash<<5)-hash) + char;
+                hash = hash & hash; //convert to 32bit integer
+            }
+            return hash;
+        }
 
-      $(document).ready(function(){
+      /*$(document).ready(function(){
         var $body = $('body');
         $body.html('');
 
@@ -20,8 +32,52 @@
           index -= 1;
         }
 
-      });
+      });*/
+
+         $(document).ready(getTweets());
+
+        function getTweets() {
+        var $ul = $('ul');
+        $ul.html('');
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<li></li>');
+          $tweet.html('<div><i>' + moment(tweet.created_at).fromNow()+ '</i></div><div onclick = "getUserTweets(\'' + tweet.user + '\')"><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>');
+          $tweet.appendTo($ul);
+          index -= 1;
+        }
+        };
+
+        function getUserTweets(username) {
+            var $ul = $('ul');
+            $ul.html('');
+            var index = streams.users[username].length - 1;
+            while(index >=0){
+                var tweet = streams.users[username][index];
+                var $tweet = $('<li></li>');
+                $tweet.html('<div><i>' + moment(tweet.created_at).fromNow()+ '</i></div><div><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>' );
+                $tweet.appendTo($ul);
+                index -=1;
+            }
+        };
+
+      
+       
+       
+
+     
+
 
     </script>
+    <h1 class="big" >Twittler</h1>
+    <ul>
+         
+        </ul>
+    <p>
+    </p>
+    <input class="draft" type="text"/> 
+    <button class="Write Tweet">Send</button>
+    <button onclick="getTweets()">View Newest Tweets</button>
   </body>
 </html>
