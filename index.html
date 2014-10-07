@@ -1,5 +1,52 @@
 <!DOCTYPE html>
 <html>
+<style>
+    body {
+    font-family:"Helvetica Neue";
+    <!---background-color:#C8C8C8---> ;
+    padding-top: 40px;
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-bottom: 40px;
+    background-image: url("http://www.sebastianlaskowski.com/bgimages/backgrounds-that-work-well-with-shadygamer-shadygamer.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+}
+    h1{
+      
+    color: White;
+    text-align: center;
+    font-size: 60px;
+    font-family:"Abel";
+    text-shadow: -2px -2px 4px #000000;
+    }
+    div {
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    min-height: 75%;
+    background: rgba(6,52,66,1);
+    background: -moz-linear-gradient(top, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 2%, rgba(0,139,139,1) 18%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(6,52,66,1)), color-stop(0%, rgba(6,52,66,1)), color-stop(2%, rgba(6,52,66,1)), color-stop(18%, rgba(0,139,139,1)));
+    background: -webkit-linear-gradient(top, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 2%, rgba(0,139,139,1) 18%);
+    background: -o-linear-gradient(top, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 2%, rgba(0,139,139,1) 18%);
+    background: -ms-linear-gradient(top, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 2%, rgba(0,139,139,1) 18%);
+    background: linear-gradient(to bottom, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 0%, rgba(6,52,66,1) 2%, rgba(0,139,139,1) 18%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#063442', endColorstr='#008b8b', GradientType=0 );
+    padding-top: 40px;
+    padding-bottom:40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    -webkit-box-shadow: -9px -4px 16px 0px #000000;
+    -moz-box-shadow:    -9px -4px 16px 0px #000000;
+    box-shadow:         -9px -4px 16px 0px #000000;
+    border-style: solid;
+    border-width: 2px;
+  }
+
+
+</style>
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
@@ -43,7 +90,7 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<li></li>');
-          $tweet.html('<div><i>' + moment(tweet.created_at).fromNow()+ '</i></div><div onclick = "getUserTweets(\'' + tweet.user + '\')"><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>');
+          $tweet.html('<div onclick = "getUserTweets(\'' + tweet.user + '\')"><i>' + moment(tweet.created_at).fromNow()+ '</i><br><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>');
           $tweet.appendTo($ul);
           index -= 1;
         }
@@ -56,7 +103,7 @@
             while(index >=0){
                 var tweet = streams.users[username][index];
                 var $tweet = $('<li></li>');
-                $tweet.html('<div><i>' + moment(tweet.created_at).fromNow()+ '</i></div><div><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>' );
+                $tweet.html('<div onclick = "getUserTweets(\'' + tweet.user + '\')"><i>' + moment(tweet.created_at).fromNow()+ '</i><br><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>');
                 $tweet.appendTo($ul);
                 index -=1;
             }
@@ -70,7 +117,7 @@
 
 
     </script>
-    <h1 class="big" >Twittler</h1>
+    <h1 class="big" font color="white" >Twittler</h1>
     <ul>
          
         </ul>
