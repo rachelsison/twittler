@@ -55,31 +55,6 @@
   <title>Twittler</title>
   <body>
     <script>
-        hashCode = function(str){
-            var hash = 0;
-            if (str.length === 0) return hash;
-            for(i=0; i < str.length; i++) {
-                char = str.charCodeAt(i);
-                hash = ((hash<<5)-hash) + char;
-                hash = hash & hash; //convert to 32bit integer
-            }
-            return hash;
-        }
-
-      /*$(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
-
-      });*/
 
          $(document).ready(getTweets());
 
@@ -99,15 +74,42 @@
         function getUserTweets(username) {
             var $ul = $('ul');
             $ul.html('');
-            var index = streams.users[username].length - 1;
-            while(index >=0){
+            if(username === 'guest'){
+                var index = guest.length - 1;
+                while(index >= 0){
+                    var tweet = guest[index];
+                    console.log(tweet.message);
+                    var $tweet = $('<li></li>');
+                    $tweet.html('<div onclick = "getUserTweets(\''+ tweet.user + '\')"><i>' + moment(tweet.created_at).fromNow() + '</i><br><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>');
+                    $tweet.appendTo($ul);
+                    index -= 1;
+                }
+            }else{
+            index = streams.users[username].length - 1;
+            while(index >= 0){
                 var tweet = streams.users[username][index];
                 var $tweet = $('<li></li>');
                 $tweet.html('<div onclick = "getUserTweets(\'' + tweet.user + '\')"><i>' + moment(tweet.created_at).fromNow()+ '</i><br><b>@' + tweet.user + '</b>: ' + tweet.message + '</div>');
                 $tweet.appendTo($ul);
-                index -=1;
+                index -= 1;
+            }
             }
         };
+        
+        var guest = [];
+        function writeTweeter(message) {
+            var tweet = {};
+            tweet.user = 'guest';
+            tweet.message = message;
+            tweet.created_at = new Date();
+            guest.push(tweet);
+            streams.home.push(tweet);
+        }
+
+
+        
+
+           
 
       
        
@@ -124,7 +126,7 @@
     <p>
     </p>
     <input class="draft" type="text"/> 
-    <button class="Write Tweet">Send</button>
+    <button onclick = "writeTweeter($('.draft').val())"class="Write Tweet">Send</button>
     <button onclick="getTweets()">View Newest Tweets</button>
   </body>
 </html>

@@ -4,6 +4,7 @@
  */
 
 // set up data structures
+vistor = 'visitor';
 window.streams = {};
 streams.home = [];
 streams.users = {};
@@ -11,11 +12,15 @@ streams.users.shawndrost = [];
 streams.users.sharksforcheap = [];
 streams.users.mracus = [];
 streams.users.douglascalhoun = [];
+streams.users.visitor = [];
 window.users = Object.keys(streams.users);
+
+
 
 // utility function for adding tweets to our data structures
 var addTweet = function(newTweet){
   var username = newTweet.user;
+  //console.log(username)
   streams.users[username].push(newTweet);
   streams.home.push(newTweet);
 };
@@ -64,6 +69,8 @@ var writeTweet = function(message){
   }
   var tweet = {};
   tweet.user = visitor;
+  //console.log(visitor);
   tweet.message = message;
+  //console.log('adding tweet');
   addTweet(tweet);
 };
